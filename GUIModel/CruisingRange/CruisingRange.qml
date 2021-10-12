@@ -30,6 +30,7 @@ Item{
     readonly property real cruisingRangeValueMin: 0
 
     onCruisingRangeValueChanged: {
+        limitCruisingRangeValue();
         updateCruisingRangeValue();
         updateCruisingRangeVisible();
     }
@@ -49,6 +50,11 @@ Item{
         }
     }
 
+    function limitCruisingRangeValue(){
+        if(cruisingRangeValue > 999){
+            cruisingRangeValue = 999
+        }
+    }
     function updateCruisingRangeValue(){
         cruisingRangeParts.cruisingRangeValue100 = (cruisingRangeValue/100)%10
         cruisingRangeParts.cruisingRangeValue10 = (cruisingRangeValue/10)%10

@@ -8,17 +8,29 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(INSTALL_DIRECTORY "/opt/apps")
 
+find_package(PkgConfig)
+
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Qml REQUIRED)
 find_package(Qt5Gui REQUIRED)
+
+pkg_check_modules(CLUSTER_IPC REQUIRED cluster_ipc)
+pkg_check_modules(CLUSTER_API REQUIRED cluster_api)
 
 include_directories(
     "${Qt5Core_INCLUDE_DIRS}"
     "${Qt5Qml_INCLUDE_DIRS}"
     "${Qt5Gui_INCLUDE_DIRS}"
+    "${CLUSTER_IPC_INCLUDE_DIRS}"
+    "${CLUSTER_API_INCLUDE_DIRS}"
+    Application
 )
 
-set(SOURCES Application/main.cpp)
+set(SOURCES 
+    Application/main.cpp
+    Application/IC_DataPool.cpp
+    Application/IC_Receiver.cpp
+)
 
 qt5_add_resources(
     RESOURCES
@@ -37,6 +49,7 @@ add_executable(
 )
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Qml Qt5::Gui)
+target_link_libraries(${PROJECT_NAME} ${CLUSTER_IPC_LIBRARIES} ${CLUSTER_API_LIBRARIES})
 
 if(NOT DEFINED APPS_INST_DIR)
     set(APPS_INST_DIR /opt/apps)

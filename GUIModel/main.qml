@@ -39,6 +39,97 @@ Window {
     flags: Qt.FramelessWindowHint
     maximumWidth: width
     maximumHeight: height
+    /* SLOTS */
+    function slotTurnR(on_off){
+        if(on_off){
+            header.turn_r_on.visible = true
+            header.turn_r_off.visible = false
+        }else{
+            header.turn_r_on.visible = false
+            header.turn_r_off.visible = true
+        }
+    }
+    function slotTurnL(on_off){
+        if(on_off){
+            header.turn_l_on.visible = true
+            header.turn_l_off.visible = false
+        }else{
+            header.turn_l_on.visible = false
+            header.turn_l_off.visible = true
+        }
+    }
+    function slotBrake(on_off){
+        telltale.telltaleBrake = on_off
+    }
+    function slotSeatbelt(on_off){
+        telltale.telltaleSeatbelt = on_off
+    }
+    function slotHighbeam(on_off){
+        telltale.telltaleHighbeam = on_off
+    }
+    function slotDoor(on_off){
+        telltale.telltaleDoor = on_off
+    }
+    function slotEps(on_off){
+        telltale.telltaleEps = on_off
+    }
+    function slotSrsAirbag(on_off){
+        telltale.telltaleSrsAirbag = on_off
+    }
+    function slotAbs(on_off){
+        telltale.telltaleAbsWarn = on_off
+    }
+    function slotLowBattery(on_off){
+        telltale.telltaleLowBatt = on_off
+    }
+    function slotImmobi(on_off){
+        telltale.telltaleImmobi = on_off
+    }
+    function slotEspAct(on_off){
+        telltale.telltaleEspAct = on_off
+    }
+    function slotEspOff(on_off){
+        telltale.telltaleEspOff = on_off
+    }
+    function slotHillDescent(on_off){
+        telltale.telltaleHillDescent = on_off
+    }
+    function slotGeneralWarn(on_off){
+        telltale.telltaleGeneralWarn = on_off
+    }
+    function slotGearAtVal(pos){
+        switch(pos){
+        case(1): // Parking
+            shiftPosition.shiftId = 1
+            break
+        case(2): // Reverse
+            shiftPosition.shiftId = 2
+            break
+        case(3):  // Neutral
+            shiftPosition.shiftId = 3
+            break
+        case(4):  // Drive
+            shiftPosition.shiftId = 4
+            break
+        case(6):  // Low
+            shiftPosition.shiftId = 6
+            break
+        default:  // Parking
+            shiftPosition.shiftId = 1
+            break
+    }
+    function slotSpAnalogVal(speed){
+        meter.speedValue = speed / 100
+    }
+    function slotTaAnalogVal(tacho){
+        meter.tachoValue = tacho
+    }
+    function slotOTempVal(temp){
+        header.outsideTemperature.tempValue = temp
+    }
+    function slotCruRangeVal(range){
+        cruisingRange.slotCruRangeVal = range
+    }
     Item{
         id: rootItem
         width: 1920
